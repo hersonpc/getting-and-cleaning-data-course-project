@@ -4,8 +4,6 @@
 
 Author: [Herson Melo](mailto:hersonpc@gmail.com)
 
-___
-
 > This code book describe the result data fields in [tidy.csv](./tidy.csv).
 
 ## Data source

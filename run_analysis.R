@@ -122,7 +122,7 @@ data.x <- data.x[, meanOrStd]
 activity_labels <- tbl_df( read.table(file.path(dataFolder, "activity_labels.txt"), header = FALSE) )
 names(activity_labels) <- c("id", "type")
 
-data.y$activity <- sapply(data.y[, 1], function(x) { as.character( activity_type[x, ]$type ) })
+data.y$activity <- sapply(data.y[, 1], function(x) { as.character( activity_labels[x, ]$type ) })
 data.y$activity <- factor(data.y$activity)
 
 ###################################################################################
@@ -147,8 +147,23 @@ data.all <- cbind(data.y, data.s, data.x)
 
 data.tidy <- aggregate(data.all[, -(1:3)], list(activity = data.all$activity, subject = data.all$subject_id), mean)
 
-write.csv(data.tidy, file = "tidy.csv", fileEncoding = "UTF-8", row.names = FALSE)
+#standardizeCols <- function(currentColName) {
+#    newColName <- currentColName
+#    
+#    newColName <- gsub("-", "_", newColName)
+#    #newColName <- gsub("\\(\\)", "", newColName)
+#    newColName <- gsub("^t", "time", newColName)
+#    newColName <- gsub("^f", "freq", newColName)
+#    
+#    return(newColName)
+#}
+#
+#names(data.tidy) <- sapply(names(data.tidy), standardizeCols)
+
+
+# Output...
+write.table(data.tidy, file = "tidy.txt", fileEncoding = "UTF-8", row.names = FALSE)
 
 
 
-names(data.tidy)
+
